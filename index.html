@@ -958,6 +958,7 @@ header{will-change:transform;backdrop-filter:blur(8px);-webkit-backdrop-filter:b
 #how #score-step .s-art{width:min(108%,448px)}
 @media (min-width:701px){#how .step:nth-of-type(4) .s-art{position:relative;top:70px}}
 @media (min-width:701px){#how .step:nth-of-type(5) .s-art{position:relative;top:100px}}
+.vplayer,.vscr,.vscr .vc,.vscr .vc-seek,.hero-stage .dev,.hero-stage .dev-frame{touch-action:pan-y}
 </style>
 
 <header>
@@ -1357,9 +1358,10 @@ function snd(){sd.setAttribute('aria-pressed',!v.muted);sd.setAttribute('aria-la
 function state(){scr.classList.toggle('vc-paused',v.paused);pl.setAttribute('aria-label',v.paused?'Play':'Pause')}
 v.addEventListener('timeupdate',upd);v.addEventListener('loadedmetadata',upd);v.addEventListener('play',function(){scr.classList.add('vc-started');state()});v.addEventListener('pause',state);v.addEventListener('volumechange',snd);state();snd();
 function play(){userPaused=false;v.play().catch(function(){})}
-pl.addEventListener('click',function(){if(v.paused)play();else{userPaused=true;v.pause()}});
+function goFull(){if(!window.matchMedia('(max-width:700px)').matches||document.fullscreenElement)return;try{if(v.requestFullscreen){v.requestFullscreen().catch(function(){if(v.webkitEnterFullscreen)v.webkitEnterFullscreen()})}else if(v.webkitEnterFullscreen){v.webkitEnterFullscreen()}}catch(e){}}
+pl.addEventListener('click',function(){if(v.paused){play();goFull()}else{userPaused=true;v.pause()}});
 v.addEventListener('click',function(){pl.click()});
-if(big)big.addEventListener('click',function(){v.muted=false;play();show()});
+if(big)big.addEventListener('click',function(){v.muted=false;play();goFull();show()});
 sk.addEventListener('input',function(){sk.dragging=true;var d=v.duration||0;if(d)v.currentTime=sk.value/1000*d;upd()});
 sk.addEventListener('change',function(){sk.dragging=false});
 sd.addEventListener('click',function(){v.muted=!v.muted;if(!v.muted&&v.paused)play()});
