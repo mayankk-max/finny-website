@@ -928,7 +928,7 @@ header{will-change:transform;backdrop-filter:blur(8px);-webkit-backdrop-filter:b
 .hero-stage .coin{position:absolute;left:0;top:0;max-width:none;height:auto;opacity:0;will-change:transform,opacity;user-select:none;-webkit-user-drag:none}
 .hero-stage .dev-hero{z-index:1}.dev-vscreen{overflow:hidden!important;overscroll-behavior:auto!important}@media (max-width:960px){#how .step:first-of-type{gap:0}#how .step:first-of-type>.s-copy{display:contents}#how .step:first-of-type>.s-copy>.s-num,#how .step:first-of-type>.s-copy>.s-title,#how .step:first-of-type>.s-copy>p{order:1}#how .step:first-of-type>.s-visual{order:2;margin:22px 0}#how .step:first-of-type>.s-copy>.path-dims{order:3}}
 @media (max-width:960px){#score-step{gap:0}#score-step>.s-copy{display:contents}#score-step>.s-copy>.s-num,#score-step>.s-copy>.s-title,#score-step>.s-copy>p{order:1}#score-step>.s-visual{order:2;margin:22px 0}#score-step>.s-copy>.sc-dims{order:3}}
-@media (max-width:700px){#how .step{position:relative!important;top:auto!important}#how .step:after{display:none}#how .s-visual .dev{width:228px!important;max-width:100%}#how .s-visual{min-height:0!important;margin-top:14px;margin-bottom:6px}#how .step-crop .s-visual .dev{width:228px!important}}
+@media (max-width:700px){#how .step{position:sticky!important;top:72px}#how .step:after{display:none}#how .s-visual .dev{width:228px!important;max-width:100%}#how .s-visual{min-height:0!important;margin-top:14px;margin-bottom:6px}#how .step-crop .s-visual .dev{width:228px!important}}
 #how .step:first-of-type .path-dims{display:none!important}
 .count[data-low]::after,[data-combo-now]::after{content:" + GST";font-size:12px;font-weight:400;letter-spacing:0;line-height:1;margin-left:4px;opacity:.7;white-space:nowrap}
 </style>
@@ -1428,4 +1428,13 @@ var tick=false;addEventListener('scroll',function(){if(!tick){tick=true;requestA
 var lw=window.innerWidth;addEventListener('resize',function(){meas();if(Math.abs(window.innerWidth-lw)>40){lw=window.innerWidth;build()}else render()});
 addEventListener('load',function(){meas();render()});meas();build();})();</script><!-- hero coins: scroll-driven -->
 <script>(function(){var b=document.querySelector('[data-watch-story]');if(!b)return;b.addEventListener('click',function(e){e.preventDefault();var v=document.querySelector('.founder-scr');if(!v)return;try{v.scrollIntoView({behavior:'smooth',block:'center'})}catch(_){v.scrollIntoView()}var p=v.querySelector('.vbig'),vid=v.querySelector('video');setTimeout(function(){if(p&&getComputedStyle(p).display!=='none'&&!v.classList.contains('vc-started'))p.click();else if(vid&&vid.paused)vid.play()},450)})})();</script>
+<script>
+/* Phone: stack the 01-05 steps. Each card pins so its whole body is visible, then the next slides over it. */
+(function(){var mq=window.matchMedia('(max-width:700px)');var steps=[].slice.call(document.querySelectorAll('#how .step'));if(!steps.length)return;
+function fit(){steps.forEach(function(el,i){if(!mq.matches){el.style.top='';return}var h=el.offsetHeight,top=Math.min(72+i*10,window.innerHeight-h-12);el.style.setProperty('top',top+'px','important')})}
+var t;function later(){clearTimeout(t);t=setTimeout(fit,120)}
+window.addEventListener('resize',later);window.addEventListener('orientationchange',later);window.addEventListener('load',fit);
+if(window.ResizeObserver){var ro=new ResizeObserver(later);steps.forEach(function(el){ro.observe(el)})}
+if(mq.addEventListener)mq.addEventListener('change',fit);fit()})();
+</script>
 </body></html>
