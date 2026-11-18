@@ -24,7 +24,7 @@ Single-file marketing site (SEBI-registered FIRE advisory app).
 - The homepage has also been drafted as a claude.ai artifact ("Finny Homepage"). When syncing from it, swap the two `/_blob/...` video URLs for `hero.mp4` and `founder.mp4`.
 
 ### Deploy
-- The deploy script / hosting target is NOT recorded in this repo yet (the existing note only says "upload the whole folder"). Do not guess a deploy command. Ask the owner once, then write the exact steps here.
+- Hosting: GitHub Pages (confirmed by the owner). Deploy = push the updated `index.html` (plus `hero.mp4` / `founder.mp4`) to `main` of mayankk-max/finny-website; Pages publishes from there. No separate deploy script. Live URL and the Pages source setting (branch/folder) are not yet verified from this environment (the GitHub Pages API and the site are blocked here), so ask the owner for the live URL once and record it here.
 
 ### Site facts to keep consistent
 - SEBI RIA registration no. INA000020873 (verify link uses `regno=INA000020873`).
